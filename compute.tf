@@ -20,3 +20,36 @@ resource "aws_instance" "web2" {
     Name = "CCTB-ProductionEnv"
   }
 }
+
+resource "aws_instance" "testing" {
+  ami           = "ami-0440d3b780d96b29d" # Amazon Linux 2 AMI (HVM)
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.main_b.id
+  security_groups = [aws_security_group.web_sg.id]
+  key_name      = aws_key_pair.generated_key.key_name
+  tags = {
+    Name = "Testing_Env"
+  }
+}
+
+resource "aws_instance" "Production" {
+  ami           = "ami-0440d3b780d96b29d" # Amazon Linux 2 AMI (HVM)
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.main_b.id
+  security_groups = [aws_security_group.web_sg.id]
+  key_name      = aws_key_pair.generated_key.key_name
+  tags = {
+    Name = "ProductionEnv"
+  }
+}
+
+resource "aws_instance" "jenkinsController" {
+  ami           = "ami-0440d3b780d96b29d" # Amazon Linux 2 AMI (HVM)
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.main_b.id
+  security_groups = [aws_security_group.web_sg.id]
+  key_name      = aws_key_pair.generated_key.key_name
+  tags = {
+    Name = "JenkinsController"
+  }
+}
